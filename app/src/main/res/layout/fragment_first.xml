@@ -2,12 +2,19 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <variable
+            name="mainViewModel"
+            type="com.soict.hoangviet.communicatebetweenfragmentandactivity.viewmodel.MainViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#79ce98">
 
         <EditText
+            android:text="@={mainViewModel.input}"
             android:inputType="number"
             android:id="@+id/edt_input"
             android:layout_width="match_parent"

@@ -1,9 +1,6 @@
 package com.soict.hoangviet.communicatebetweenfragmentandactivity.view;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,27 +36,15 @@ public class FirstFragment extends Fragment {
     }
 
     private void initListener() {
+        mainViewModel.getInput().observe(this, editable -> {
+            try {
+                mainViewModel.getInputLiveData().setValue(Integer.valueOf(editable));
+            } catch (NumberFormatException e) {
+            }
+        });
     }
 
     private void initData() {
-        binding.edtInput.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                try {
-                    mainViewModel.getInputLiveData().setValue(Integer.valueOf(editable.toString()));
-                } catch (NumberFormatException e) {
-                    mainViewModel.getInputLiveData().setValue(Integer.valueOf(editable.toString()));
-                }
-            }
-        });
     }
 
     private void initView() {
@@ -68,5 +53,6 @@ public class FirstFragment extends Fragment {
 
     private void initViewModel() {
         mainViewModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
+        binding.setMainViewModel(mainViewModel);
     }
 }
